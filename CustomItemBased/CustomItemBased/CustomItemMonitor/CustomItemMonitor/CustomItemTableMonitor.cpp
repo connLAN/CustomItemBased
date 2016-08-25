@@ -1,0 +1,89 @@
+#include "CustomItemTableMonitor.h"
+
+CustomItemTableMonitor::CustomItemTableMonitor(QWidget *parent)
+    :QFrame(parent)
+{
+    init();
+    build();
+}
+
+void CustomItemTableMonitor::init()
+{
+    mView = new CustomItemTableView(this);
+    mCaption = new QRadioButton("Table Monitor",this);
+    mLayout = new QVBoxLayout(this);
+
+    connect(mView, SIGNAL(signalCurrentChanged(CustomItemData,int,int)), this,   SIGNAL(signalCurrentChanged(CustomItemData,int,int)));
+}
+
+void CustomItemTableMonitor::build()
+{
+    mLayout->setMargin(0);
+    mLayout->setSpacing(0);
+    mLayout->addWidget(mCaption);
+    mLayout->addWidget(mView);
+    mCaption->setChecked(false);
+    mView->resizeViewToContents();
+    mView->setAlternatingRowColors(true);
+    //mView->verticalHeader()->hide();
+    mView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    setHeaders({"NAME","VALUE","DESC","TEST"});
+}
+
+void CustomItemTableMonitor::setHeaders(const QVector<QString> &headers)
+{
+    mView->setHeaders(headers);
+}
+
+void CustomItemTableMonitor::setItems(CustomItem* rootItem)
+{
+    mView->setItems(rootItem);    
+}
+
+void CustomItemTableMonitor::setItems(const QList<CustomItem> &items)
+{
+    mView->setItems(items);
+}
+void CustomItemTableMonitor::updateItems(CustomItem* rootItem)
+{
+    mView->updateItems(rootItem);
+}
+
+void CustomItemTableMonitor::updateItems(const QList<CustomItem> &items)
+{
+    mView->updateItems(items);
+}
+//SLOTS
+void CustomItemTableMonitor::slotSetHeaders(const QVector<QString> &headers)
+{
+    setHeaders(headers);
+}
+
+void CustomItemTableMonitor::slotResizeViewToContents()
+{
+    mView->resizeViewToContents();
+}
+
+void CustomItemTableMonitor::slotUpdateItems(CustomItem* rootItem)
+{
+    updateItems(rootItem);
+    mCaption->setChecked( !mCaption->isChecked() );
+}
+
+void CustomItemTableMonitor::slotUpdateItems(const QList<CustomItem> &items)
+{
+    updateItems(items);
+    mCaption->setChecked( !mCaption->isChecked() );
+}
+void CustomItemTableMonitor::slotSetItems(CustomItem* rootItem)
+{
+    setItems(rootItem);
+}
+
+void CustomItemTableMonitor::slotSetItems(const QList<CustomItem> &items)
+{
+    setItems(items);
+}
+
+
+
