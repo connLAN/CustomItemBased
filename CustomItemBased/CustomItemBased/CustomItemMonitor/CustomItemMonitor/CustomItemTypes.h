@@ -1,6 +1,11 @@
 #ifndef CUSTOMITEMTYPES_H
 #define CUSTOMITEMTYPES_H
 
+#pragma push_macro("min")
+#pragma push_macro("max")
+#undef min
+#undef max
+
 template<typename T>
 class CustomItemType{
 public:
@@ -94,5 +99,8 @@ Q_DECLARE_METATYPE(SIProgress);
 Q_DECLARE_METATYPE(SIString);
 Q_DECLARE_METATYPE(SIBars);
 Q_DECLARE_METATYPE(SIGraph);
+
+#pragma pop_macro("min")
+#pragma pop_macro("max")
 
 #endif //CUSTOMITEMTYPES_H

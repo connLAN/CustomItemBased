@@ -49,7 +49,12 @@ public:
     inline int getCurrentLayer()const   { return mLayer; }
     inline int getCurrentStripe()const  { return mStripe; }
     inline int getCurrentChannel()const { return mChannel; }
-
+	inline void setLayersNumber(int layersNumber)
+	{
+		mLayersNumber = layersNumber;
+		if (mLayer > mLayersNumber-1)
+			mLayer = mLayersNumber-1;
+	}
     inline void setCurrentLayer(int layer)
     {
         if(layer<mLayersNumber)
@@ -79,7 +84,7 @@ public:
 
     const YuzzData& getCurrentData();
     const YuzzData& getCurrentData(int channel);
-    void initialize(int layersNumber,int stripesNumber,int channelsNumber);
+    void initialize(int layersNumber,int stripesNumber,int channelsNumber,int startLayer);
     void insert(int layer,int stripe,int channel,const YuzzData& data);
     CustomItem* getItems();
 
@@ -94,6 +99,7 @@ private:
     QVector< QVector< QVector <YuzzData>>> mOriginalData;
     QVector< QVector< QVector <YuzzData>>> mProcessedData;
     YuzzData blankData;
+	int mStartLayer{0};
 
     void differenceYuzzes(int layer,int stripe);
 };

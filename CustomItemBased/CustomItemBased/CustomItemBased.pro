@@ -2,7 +2,8 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     CustomItemMonitor/CustomItemMonitor \
-    YuzzViewer/YuzzViewer
+    YuzzViewer/YuzzViewer \
+    GLPixmapViewer/GLPixmapViewer
 
 #YuzzViewer.depends = CustomItemMonitor/CustomItemMonitor
 

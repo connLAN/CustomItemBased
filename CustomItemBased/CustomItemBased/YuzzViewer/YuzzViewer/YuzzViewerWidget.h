@@ -39,12 +39,12 @@ public slots:
     void slotShowRotatedPixmap(bool isRotated);
     void slotShowDifferencePixmap(bool isDifferenced);
     void slotShowBananedPixmap(bool isBananed);
-    void slotInitialize(int layersNumber,int stripesNumber,int channelsNumber,BANANA_INFO bananaGeometry);
+    void slotInitialize(int layersNumber,int stripesNumber,int channelsNumber,int startLayer,BANANA_INFO bananaGeometry);
     void slotSetCurrentLayer(int layer);
     void slotSetCurrentStripe(int stripe);
     void slotSetCurrentChannel(int channel);
     void slotSetCurrent(const CustomItem* item,int row,int column);
-
+	void slotFinalize(int layersNumber);
 protected:
     void resizeEvent(QResizeEvent *);
 

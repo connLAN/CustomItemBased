@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     timer = new QTimer();
-    ui->frame_Viewer->slotInitialize(layersNumber,stripesNumber,channelsNumber,BANANA_INFO()/*{0,0,730,1500,0,1.57,0,0,0}*/);
+    ui->frame_Viewer->slotInitialize(layersNumber,stripesNumber,channelsNumber,0,BANANA_INFO()/*{0,0,730,1500,0,1.57,0,0,0}*/);
     //connect(this,SIGNAL(signalDataReady(int,int,int,QStringList,QPixmap)),ui->frame_Viewer,SLOT(slotUpdate(int,int,int,QStringList,QPixmap)));
     connect(this,SIGNAL(signalDataReady(int,int,int,QStringList,QImage)),ui->frame_Viewer,SLOT(slotUpdate(int,int,int,QStringList,QImage)));
     connect(timer,SIGNAL(timeout()),this, SLOT(slotDataPreparing()));

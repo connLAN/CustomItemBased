@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tableMonitor,   SIGNAL(signalCurrentChanged(CustomItemData,int,int)),               this,                   SLOT(slotCurrentChanged(CustomItemData,int,int)));
     connect(ui->treeMonitor,    SIGNAL(signalCurrentChanged(const CustomItem*,int,int)),            this,                   SLOT(slotCurrentChanged(const CustomItem*,int,int)));
     slotTimeout();
-    //mTimer->start(200);
+    mTimer->start(200);
 }
 
 MainWindow::~MainWindow()

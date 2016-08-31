@@ -31,6 +31,7 @@ public slots:
     void slotSetItems(const QList<CustomItem>& items);
     void slotSetHeaders(const QVector<QString>& headers);
     void slotResizeViewToContents();
+	void setCaption(const QString &text);
 
 signals:
     void signalCurrentChanged(CustomItemData data,int row, int column);

@@ -10,12 +10,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = YuzzViewer
 TEMPLATE = app
-INCLUDEPATH =../../CustomItemMonitor/CustomItemMonitor/
+INCLUDEPATH +=../../CustomItemMonitor/CustomItemMonitor/
+INCLUDEPATH +=../../GLPixmapViewer/GLPixmapViewer/
 
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    PixmapWidget.cpp \
     YuzzViewer.cpp \
     YuzzViewerWidget.cpp \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItem.cpp \
@@ -29,11 +29,10 @@ SOURCES += main.cpp\
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemTreeView.cpp \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemWidget.cpp \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemWidgets.cpp \
-    ../../CustomItemMonitor/CustomItemMonitor/qcustomplot.cpp
+    ../../CustomItemMonitor/CustomItemMonitor/qcustomplot.cpp \
+    ../../GLPixmapViewer/GLPixmapViewer/PixmapWidget.cpp
 
 HEADERS  += mainwindow.h \
-    PixmapWidget.h \
-    structs.h \
     YuzzViewer.h \
     YuzzViewerWidget.h \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItem.h \
@@ -48,7 +47,9 @@ HEADERS  += mainwindow.h \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemTypes.h \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemWidget.h \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemWidgets.h \
-    ../../CustomItemMonitor/CustomItemMonitor/qcustomplot.h
+    ../../CustomItemMonitor/CustomItemMonitor/qcustomplot.h \
+    ../../GLPixmapViewer/GLPixmapViewer/PixmapWidget.h \
+    ../../GLPixmapViewer/GLPixmapViewer/structs.h
 
 FORMS    += mainwindow.ui
 

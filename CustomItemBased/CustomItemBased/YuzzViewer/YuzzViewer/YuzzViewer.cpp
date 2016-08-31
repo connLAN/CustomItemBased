@@ -28,11 +28,12 @@ const YuzzData& YuzzViewer::getCurrentData(int channel)
     else
         return blankData;
 }
-void YuzzViewer::initialize(int layersNumber, int stripesNumber, int channelsNumber)
+void YuzzViewer::initialize(int layersNumber, int stripesNumber, int channelsNumber,int startLayer)
 {
     mLayersNumber = layersNumber;
     mStripesNumber = stripesNumber;
     mChannelsNumber = channelsNumber;
+	mStartLayer = startLayer;
 
     mOriginalData.resize(layersNumber);
     for( auto& vStripes : mOriginalData)
@@ -47,7 +48,18 @@ void YuzzViewer::initialize(int layersNumber, int stripesNumber, int channelsNum
 
 void YuzzViewer::insert(int layer, int stripe, int channel, const YuzzData &data)
 {
-    if( (layer<mLayersNumber) && (stripe<mStripesNumber) && (channel<mChannelsNumber) )
+	if (layer >= mLayersNumber)
+	{
+		mLayersNumber++;
+		QVector< QVector <YuzzData>> vStripes;
+		
+		vStripes.resize(mStripesNumber);
+		for (auto& vChannels : vStripes)
+			vChannels.resize(mChannelsNumber);
+
+		mOriginalData.push_back(vStripes);
+	}
+	if( (stripe<mStripesNumber) && (channel<mChannelsNumber) )
     {
         mOriginalData[layer][stripe][channel]=data;
         mLayer=layer;
@@ -117,7 +129,7 @@ CustomItem *YuzzViewer::getItems()
     for(int layer=0; layer<mLayersNumber; layer++)
     {
         CustomItem* itemL = new CustomItem();
-        itemL->addProperty("name",QString("Layer %1").arg(layer));
+        itemL->addProperty("name",QString("Layer %1").arg(layer + mStartLayer));
         itemL->addProperty("value",layer);
         itemL->addProperty("type",QString("Layer"));
         rootItem->addItem(itemL);

@@ -48,7 +48,9 @@ void YuzzViewerWidget::build()
     mDescriptionWidget =    new QTextEdit(this);
     mScrollArea =           new QScrollArea(this);
     mPixmapWidgetsFrame=    new QFrame(this);
+    QFrame* BuildListFrame=         new QFrame(this);
     mBuildListWidget=       new CustomItemTreeMonitor(this);
+
 
     QGridLayout* layout=    new QGridLayout(mPixmapWidgetsFrame);
     layout->setMargin(0);
@@ -59,7 +61,6 @@ void YuzzViewerWidget::build()
     mIsRotatedPixmap->setChecked(false);
     mIsShowAllChannels =    new QCheckBox("All channels",this);
     mIsShowAllChannels->setChecked(false);
-    //mIsShowDifference =     new QCheckBox("Difference mode",this);
 
     mProgress =             new QProgressBar(this);
     mProgress->setTextVisible(false);
@@ -76,35 +77,40 @@ void YuzzViewerWidget::build()
 
 
     QSizePolicy policy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-    policy.setHorizontalStretch(3);
+    policy.setHorizontalStretch(4);
     mTabWidget->setSizePolicy(policy);
     mTabWidget->addTab(mScrollArea,"Pixmap");
     mTabWidget->addTab(mDescriptionWidget,"Description");
 
     policy.setHorizontalStretch(1);
-    mBuildListWidget->setSizePolicy(policy);
+    BuildListFrame->setSizePolicy(policy);
+
     mBuildListWidget->setCaptionVisible(false);
     mBuildListWidget->setHeaders(QVector<QString>({"Layers"}));
-
-//widgetsLayout initialization
-    QHBoxLayout* widgetsLayout = new QHBoxLayout();
-    widgetsLayout->setSpacing(2);
-    widgetsLayout->setMargin(0);
-
-    widgetsLayout->addWidget(mTabWidget);
-    widgetsLayout->addWidget(mBuildListWidget);
-
-
 
 //settingsLayout initialisation
     QHBoxLayout* settingsLayout = new QHBoxLayout();
     settingsLayout->setSpacing(2);
     settingsLayout->setMargin(0);
-    settingsLayout->addStretch();
+    //settingsLayout->addStretch();
     settingsLayout->addWidget(mIsRotatedPixmap);
     settingsLayout->addWidget(mIsShowAllChannels);
-    //settingsLayout->addWidget(mIsShowDifference);
     settingsLayout->addStretch();
+
+//buildlistLayout initialization
+    QVBoxLayout* buildlistLayout = new QVBoxLayout();
+    buildlistLayout->setSpacing(2);
+    buildlistLayout->setMargin(0);
+    buildlistLayout->addWidget(mBuildListWidget);
+    buildlistLayout->addLayout(settingsLayout);
+    BuildListFrame->setLayout(buildlistLayout);
+
+//widgetsLayout initialization
+    QHBoxLayout* widgetsLayout = new QHBoxLayout();
+    widgetsLayout->setSpacing(2);
+    widgetsLayout->setMargin(0);
+    widgetsLayout->addWidget(mTabWidget);
+    widgetsLayout->addWidget(BuildListFrame);
 
 //mainLayout initialisation
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
@@ -113,7 +119,6 @@ void YuzzViewerWidget::build()
     setLayout(mainLayout);
     mainLayout->addLayout(widgetsLayout);
     mainLayout->addWidget(mProgress);
-    mainLayout->addLayout(settingsLayout);
 
 //signals initialisation
     connect( mIsRotatedPixmap,      SIGNAL(clicked(bool)),                                      this,   SLOT(slotShowRotatedPixmap(bool)) );
@@ -123,6 +128,14 @@ void YuzzViewerWidget::build()
     connect( mBuildListWidget,      SIGNAL(signalCurrentChanged(const CustomItem*,int,int)),    this,   SLOT(slotSetCurrent(const CustomItem*,int,int)));
 
 }
+void YuzzViewerWidget::slotFinalize(int layersNumber)
+{
+	mYuzzViewer.setLayersNumber(layersNumber);
+	mYuzzViewer.setCurrentLayer(0);
+	mYuzzViewer.setCurrentStripe(0);
+	mYuzzViewer.setCurrentChannel(0);
+	mProgress->setValue(mMaxCounter);
+}
 void YuzzViewerWidget::slotUpdate(int layer, int stripe, int channel,const QStringList& description, const QImage& image )
 {
     ++mCounter;
@@ -131,16 +144,16 @@ void YuzzViewerWidget::slotUpdate(int layer, int stripe, int channel,const QStri
     mYuzzViewer.insert(layer, stripe, channel, YuzzData(image,description,information));
 
     mProgress->setValue(mCounter);
-
+	mBuildListWidget->setItems(mYuzzViewer.getItems());
     if(mCounter == mMaxCounter)
     {
         mYuzzViewer.setCurrentLayer(0);
         mYuzzViewer.setCurrentStripe(0);
         mYuzzViewer.setCurrentChannel(0);
-        mBuildListWidget->setItems( mYuzzViewer.getItems());
-        update();
+        
+        //update();
     }
-    //update();
+    update();
 }
 void YuzzViewerWidget::slotUpdate(int layer, int stripe, int channel,const QStringList& description, const QPixmap& pixmap )
 {
@@ -150,16 +163,16 @@ void YuzzViewerWidget::slotUpdate(int layer, int stripe, int channel,const QStri
     mYuzzViewer.insert(layer, stripe, channel, YuzzData(pixmap,description,information));
     
 	mProgress->setValue(mCounter);
-	
+	mBuildListWidget->setItems(mYuzzViewer.getItems());
     if(mCounter == mMaxCounter)
     {
         mYuzzViewer.setCurrentLayer(0);
         mYuzzViewer.setCurrentStripe(0);
         mYuzzViewer.setCurrentChannel(0);
-        mBuildListWidget->setItems( mYuzzViewer.getItems());
-		update();
+        
+		//update();
     }
-    //update();	
+    update();	
 }
 void YuzzViewerWidget::slotUpdate()
 {
@@ -199,12 +212,12 @@ void YuzzViewerWidget::slotShowBananedPixmap(bool isBananed)
     updateImage();
 }
 
-void YuzzViewerWidget::slotInitialize(int layersNumber, int stripesNumber, int channelsNumber,BANANA_INFO bananaGeometry)
+void YuzzViewerWidget::slotInitialize(int layersNumber, int stripesNumber, int channelsNumber,int startLayer, BANANA_INFO bananaGeometry)
 {
     mCounter = 0;
     mBananaGeometry = bananaGeometry;
     mMaxCounter = layersNumber*stripesNumber*channelsNumber;
-    mYuzzViewer.initialize( layersNumber, stripesNumber, channelsNumber );
+    mYuzzViewer.initialize( 0, stripesNumber, channelsNumber, startLayer);
     mPixmapWidgetsNumder = channelsNumber;
     for(auto& w : mPixmapWidgets)
         w->setBananaGeometry(bananaGeometry);
@@ -230,10 +243,28 @@ void YuzzViewerWidget::slotSetCurrentChannel(int channel)
 
 void YuzzViewerWidget::slotSetCurrent(const CustomItem* item, int row, int column)
 {
-    int layer(0),stripe(0),channel(0);
+	int layer(0);
+	static int stripe(0);
+	static int channel(0);
+
     CustomItemData itemData = item->getData();
     QString type = itemData.getPropertyValue("type").toString();
-
+	if (type == "Layer")
+	{
+		int value = itemData.getPropertyValue("value").toInt();
+		layer = item->getData().getPropertyValue("value").toInt();
+		mYuzzViewer.setCurrent(layer, stripe, channel);
+		update();
+	}
+	if (type == "Stripe")
+	{
+		int value = itemData.getPropertyValue("value").toInt();
+		CustomItem* layerItem = item->getParent();
+		layer = layerItem->getData().getPropertyValue("value").toInt();
+		stripe = item->getData().getPropertyValue("value").toInt();
+		mYuzzViewer.setCurrent(layer, stripe, channel);
+		update();
+	}
     if(type == "Channel")
     {
         int value = itemData.getPropertyValue("value").toInt();
@@ -246,6 +277,9 @@ void YuzzViewerWidget::slotSetCurrent(const CustomItem* item, int row, int colum
         update();
     }
 }
+
+
+
 
 void YuzzViewerWidget::update(bool isUpdateAll)
 {
