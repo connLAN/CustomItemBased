@@ -19,6 +19,7 @@ public:
     void updateItems(CustomItem* rootItem);
     void updateItems(const QList<CustomItem>& items);
     void resizeViewToContents();
+    void setAutoResizeToContents(bool isResize);
 
 public slots:
     void slotCurrentChanged(QModelIndex currentIndex,QModelIndex previosIndex);
@@ -30,6 +31,7 @@ private:
     CustomItemTableModel* mModel;
     CustomItemDelegate* mDelegate;
     QItemSelectionModel* mSelectionModel;
+    bool mIsAutoResizeToContents{true};
     void init();
 };
 

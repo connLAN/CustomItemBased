@@ -2,29 +2,18 @@
 #define YUZZVIEWERWIDGET_H
 
 #include <QObject>
-#include <QFrame>
-#include <QPixmap>
-#include <QTabWidget>
-#include <QImage>
-#include <QTextEdit>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QLabel>
-#include <QScrollArea>
-#include <QSlider>
-#include <QSpinBox>
-#include <QLineEdit>
-#include <QCheckBox>
-#include <QProgressBar>
-#include <QScrollBar>
-#include <QPainter>
+#include <QWidget>
 
 #include "YuzzViewer.h"
 #include "PixmapWidget.h"
 #include "structs.h"
 #include "CustomItemTreeMonitor.h"
 
-class YuzzViewerWidget : public QFrame
+namespace Ui {
+class YuzzViewerWidget;
+}
+
+class YuzzViewerWidget : public QWidget
 {
     Q_OBJECT
 public:
@@ -53,16 +42,7 @@ private:
     int                     mCounter{0};
     int                     mMaxCounter{0};
     int                     mPixmapWidgetsNumder{1};
-    QTabWidget*             mTabWidget;
-    CustomItemTreeMonitor*  mBuildListWidget;
-    QTextEdit*              mDescriptionWidget;
     QVector<PixmapWidget*>  mPixmapWidgets;
-    QScrollArea*            mScrollArea;
-    QFrame*                 mPixmapWidgetsFrame{mPixmapWidgetsFrame};
-    QCheckBox*              mIsRotatedPixmap;
-    QCheckBox*              mIsShowAllChannels;
-    QCheckBox*              mIsShowDifference;
-    QProgressBar*           mProgress;
     BANANA_INFO             mBananaGeometry;
     void build();
     void buildPixmapWidgetsFrame(bool isShowAll);
@@ -71,6 +51,7 @@ private:
     void updatePixmap();
     void updateImage();
     void updateInformation();
+    Ui::YuzzViewerWidget *ui;
 };
 
 #endif // YUZZVIEWERWIDGET_H

@@ -9,37 +9,47 @@ CustomItemTableView::CustomItemTableView(QWidget *parent)
 void CustomItemTableView::setHeaders(const QVector<QString> &headers)
 {
     mModel->setHeaders(headers);
-    resizeViewToContents();
+    if(mIsAutoResizeToContents)
+        resizeViewToContents();
 }
 
 void CustomItemTableView::setItems(CustomItem *rootItem)
 {
     mModel->setItems(rootItem);
-    resizeViewToContents();
+    if(mIsAutoResizeToContents)
+        resizeViewToContents();
 }
 
 void CustomItemTableView::setItems(const QList<CustomItem> &items)
 {
     mModel->setItems(items);
-    resizeViewToContents();
+    if(mIsAutoResizeToContents)
+        resizeViewToContents();
 }
 
 void CustomItemTableView::updateItems(CustomItem *rootItem)
 {
     mModel->setItems(rootItem);
-    resizeViewToContents();
+    if(mIsAutoResizeToContents)
+        resizeViewToContents();
 }
 
 void CustomItemTableView::updateItems(const QList<CustomItem> &items)
 {
     mModel->setItems(items);
-    resizeViewToContents();
+    if(mIsAutoResizeToContents)
+        resizeViewToContents();
 }
 
 void CustomItemTableView::resizeViewToContents()
 {
     resizeColumnsToContents();
     resizeRowsToContents();
+}
+
+void CustomItemTableView::setAutoResizeToContents(bool isResize)
+{
+    mIsAutoResizeToContents = isResize;
 }
 
 void CustomItemTableView::slotCurrentChanged(QModelIndex currentIndex, QModelIndex previosIndex)

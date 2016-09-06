@@ -101,42 +101,19 @@ void YuzzViewer::differenceYuzzes(int layer, int stripe)
         }
     }
 }
-#if(0)
-CustomItem *YuzzViewer::getItems()
-{
-    CustomItem* rootItem = new CustomItem();
-    for(int layer=0; layer<mLayersNumber; layer++)
-    {
-        CustomItem* itemL = new CustomItem("Layer",QVariant().fromValue(SIInteger(layer)));
-        rootItem->addItem(itemL);
-        for(int stripe=0; stripe<mStripesNumber; stripe++)
-        {
-            CustomItem* itemS = new CustomItem("Stripe",QVariant().fromValue(SIInteger(stripe)));
-            itemL->addItem(itemS);
-            for(int chan=0; chan<mChannelsNumber; chan++)
-            {
-                CustomItem* itemC = new CustomItem("Channel",QVariant().fromValue(SIInteger(chan)));
-                itemS->addItem(itemC);
-            }
-        }
-    }
-    return rootItem;
-}
-#else
+
 CustomItem *YuzzViewer::getItems()
 {
     CustomItem* rootItem = new CustomItem();
     for(int layer=0; layer<mLayersNumber; layer++)
     {
         CustomItem* itemL = new CustomItem();
-        itemL->addProperty("name",QString("Layer %1").arg(layer + mStartLayer));
-        itemL->addProperty("value",layer);
-        itemL->addProperty("type",QString("Layer"));
-        rootItem->addItem(itemL);
+        
         for(int stripe=0; stripe<mStripesNumber; stripe++)
         {
             CustomItem* itemS = new CustomItem();
             itemS->addProperty("name",QString("Stripe %1").arg(stripe));
+			itemS->addProperty("description", "");
             itemS->addProperty("value",stripe);
             itemS->addProperty("type",QString("Stripe"));
 
@@ -145,16 +122,34 @@ CustomItem *YuzzViewer::getItems()
             {
                 CustomItem* itemC = new CustomItem();
                 itemC->addProperty("name",QString("Channel %1").arg(chan));
+				itemC->addProperty("description", "");
                 itemC->addProperty("value",chan);
                 itemC->addProperty("type",QString("Channel"));
 
                 itemS->addItem(itemC);
             }
         }
+		
+		itemL->addProperty("name", QString("Layer %1").arg(layer + mStartLayer));
+		if (layer == mLayersNumber - 1)
+		{
+			SIProgress si_progress = SIProgress((mChannel + 1)*(mStripe + 1), 0, mStripesNumber*mChannelsNumber);
+			itemL->addProperty("progress", QVariant().fromValue(si_progress));
+		}
+		else
+		{
+			//si_progress = SIProgress(100, 0, 100);
+			itemL->addProperty("description", "");
+		}
+		
+		itemL->addProperty("value", layer);
+		itemL->addProperty("type", QString("Layer"));
+
+		rootItem->addItem(itemL);
     }
     return rootItem;
 }
-#endif
+
 /*
 void YuzzViewer::differenceYuzzes(int layer, int stripe)
 {

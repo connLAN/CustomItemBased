@@ -23,6 +23,9 @@ public:
     void setItems(CustomItem* rootItem);
     void setItems(const QList<CustomItem>& items);
     void setHeaders(const QVector<QString>& headers);
+	void setCaptionVisible(bool isVisible);
+    CustomItemTableView *getView();
+
 
 public slots:
     void slotUpdateItems(CustomItem* rootItem);

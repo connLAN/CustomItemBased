@@ -45,6 +45,11 @@ void CustomItemTreeMonitor::setCaptionVisible(bool isVisible)
     mCaption->setVisible(isVisible);
 }
 
+CustomItemTreeView *CustomItemTreeMonitor::getView()
+{
+    return mView;
+}
+
 void CustomItemTreeMonitor::setItems(CustomItem* rootItem)
 {
     mView->setItems(rootItem);

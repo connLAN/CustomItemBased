@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "YuzzViewerWidget.h"
+#include <QSurfaceFormat>
 
 int main(int argc, char *argv[])
 {

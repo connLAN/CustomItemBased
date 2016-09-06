@@ -24,6 +24,8 @@ public:
     void setHeaders(const QVector<QString>& headers);
     void setCaption(const QString& text);
     void setCaptionVisible(bool isVisible);
+    CustomItemTreeView *getView();
+
 public slots:
     void slotUpdateItems(CustomItem* rootItem);
     void slotSetItems(CustomItem* rootItem);

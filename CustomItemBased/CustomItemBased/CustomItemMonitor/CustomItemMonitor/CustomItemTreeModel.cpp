@@ -165,3 +165,8 @@ void CustomItemTreeModel::setHeaders(const QVector<QString> &headers)
 {
     mHeaders = headers;
 }
+
+const QVector<QString>& CustomItemTreeModel::getHeaders()
+{
+	return mHeaders;
+}

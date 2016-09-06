@@ -34,7 +34,7 @@ public:
 
     void setItems(CustomItem* items);
     void setHeaders(const QVector<QString>& headers);
-
+	const QVector<QString>& getHeaders();
 private:
     CustomItem* mRootItem;
     QVector<QString> mHeaders;

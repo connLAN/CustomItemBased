@@ -18,6 +18,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->treeMonitor,    SIGNAL(signalCurrentChanged(const CustomItem*,int,int)),            this,                   SLOT(slotCurrentChanged(const CustomItem*,int,int)));
     slotTimeout();
     mTimer->start(200);
+
+    ui->tableMonitor->getView()->setAutoResizeToContents(false);
+    ui->tableMonitor->getView()->horizontalHeader()->setStretchLastSection(false);
+
+    ui->treeMonitor->getView()->setAutoResizeToContents(false);
 }
 
 MainWindow::~MainWindow()

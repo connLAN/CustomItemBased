@@ -26,7 +26,7 @@ void CustomItemTableMonitor::build()
     mView->resizeViewToContents();
     mView->setAlternatingRowColors(true);
     mView->verticalHeader()->hide();
-	mView->horizontalHeader()->setStretchLastSection(true);
+    mView->horizontalHeader()->setStretchLastSection(true);
     mView->setSelectionBehavior(QAbstractItemView::SelectRows);
     setHeaders({"NAME","VALUE","DESC","TEST"});
 }
@@ -34,6 +34,16 @@ void CustomItemTableMonitor::build()
 void CustomItemTableMonitor::setHeaders(const QVector<QString> &headers)
 {
     mView->setHeaders(headers);
+}
+
+void CustomItemTableMonitor::setCaptionVisible(bool isVisible)
+{
+    mCaption->setVisible(isVisible);
+}
+
+CustomItemTableView *CustomItemTableMonitor::getView()
+{
+    return mView;
 }
 
 void CustomItemTableMonitor::setItems(CustomItem* rootItem)

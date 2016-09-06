@@ -16,9 +16,11 @@ public:
     void setItems(CustomItem* rootItem);
     void updateItems(CustomItem* rootItem);
     void resizeViewToContents();
+    void setAutoResizeToContents(bool isResize);
 
 public slots:
-    void slotCurrentChanged(QModelIndex currentIndex,QModelIndex previosIndex);
+    void slotCurrentChanged(const QModelIndex& currentIndex,const QModelIndex& previosIndex);
+	void slotExpanded(const QModelIndex& currentIndex);
 
 signals:
     void signalCurrentChanged(const CustomItem* item,int row, int column);
@@ -27,6 +29,7 @@ private:
     CustomItemTreeModel* mModel;
     CustomItemDelegate* mDelegate;
     QItemSelectionModel* mSelectionModel;
+    bool mIsAutoResizeToContents{true};
     void init();
 };
 

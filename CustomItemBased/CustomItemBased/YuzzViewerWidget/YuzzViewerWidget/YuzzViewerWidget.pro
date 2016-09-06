@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-08-23T12:26:47
+# Project created by QtCreator 2016-09-05T14:56:16
 #
 #-------------------------------------------------
 
@@ -8,15 +8,13 @@ QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
-TARGET = YuzzViewer
+TARGET = YuzzViewerWidget
 TEMPLATE = app
-INCLUDEPATH +=../../YuzzViewerWidget/YuzzViewerWidget/
 INCLUDEPATH +=../../CustomItemMonitor/CustomItemMonitor/
 INCLUDEPATH +=../../GLPixmapViewer/GLPixmapViewer/
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    ../../YuzzViewerWidget/YuzzViewerWidget/YuzzViewerWidget.cpp \
+        YuzzViewerWidget.cpp \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItem.cpp \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemData.cpp \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemDelegate.cpp \
@@ -29,11 +27,10 @@ SOURCES += main.cpp\
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemWidget.cpp \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemWidgets.cpp \
     ../../CustomItemMonitor/CustomItemMonitor/qcustomplot.cpp \
-    ../../GLPixmapViewer/GLPixmapViewer/PixmapWidget.cpp \
-    ../../YuzzViewerWidget/YuzzViewerWidget/YuzzViewer.cpp
+    YuzzViewer.cpp \
+    ../../GLPixmapViewer/GLPixmapViewer/PixmapWidget.cpp
 
-HEADERS  += mainwindow.h \
-    ../../YuzzViewerWidget/YuzzViewerWidget/YuzzViewerWidget.h \
+HEADERS  += YuzzViewerWidget.h \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItem.h \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemData.h \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemDelegate.h \
@@ -47,14 +44,8 @@ HEADERS  += mainwindow.h \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemWidget.h \
     ../../CustomItemMonitor/CustomItemMonitor/CustomItemWidgets.h \
     ../../CustomItemMonitor/CustomItemMonitor/qcustomplot.h \
+    YuzzViewer.h \
     ../../GLPixmapViewer/GLPixmapViewer/PixmapWidget.h \
-    ../../GLPixmapViewer/GLPixmapViewer/structs.h \
-    ../../YuzzViewerWidget/YuzzViewerWidget/YuzzViewer.h
+    ../../GLPixmapViewer/GLPixmapViewer/structs.h
 
-FORMS    += mainwindow.ui
-
-RESOURCES += \
-    res.qrc
-
-
-
+FORMS    += YuzzViewerWidget.ui
