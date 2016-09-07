@@ -28,7 +28,8 @@ SUBTARGETS    =  \
 		sub-YuzzViewer-YuzzViewer \
 		sub-GLPixmapViewer-GLPixmapViewer \
 		sub-ControlBar-ControlBar \
-		sub-YuzzViewerWidget-YuzzViewerWidget
+		sub-YuzzViewerWidget-YuzzViewerWidget \
+		sub-AboutWidget-AboutWidget
 
 
 sub-CustomItemMonitor-CustomItemMonitor-qmake_all:  FORCE
@@ -156,6 +157,31 @@ sub-YuzzViewerWidget-YuzzViewerWidget-install_subtargets: FORCE
 sub-YuzzViewerWidget-YuzzViewerWidget-uninstall_subtargets: FORCE
 	@if not exist YuzzViewerWidget\YuzzViewerWidget\ mkdir YuzzViewerWidget\YuzzViewerWidget\ & if not exist YuzzViewerWidget\YuzzViewerWidget\ exit 1
 	cd YuzzViewerWidget\YuzzViewerWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\YuzzViewerWidget\YuzzViewerWidget\YuzzViewerWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile uninstall
+sub-AboutWidget-AboutWidget-qmake_all:  FORCE
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile
+	cd AboutWidget\AboutWidget\ && $(MAKE) -f Makefile qmake_all
+sub-AboutWidget-AboutWidget: FORCE
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile
+sub-AboutWidget-AboutWidget-make_first: FORCE
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile 
+sub-AboutWidget-AboutWidget-all: FORCE
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile all
+sub-AboutWidget-AboutWidget-clean: FORCE
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile clean
+sub-AboutWidget-AboutWidget-distclean: FORCE
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-AboutWidget-AboutWidget-install_subtargets: FORCE
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile install
+sub-AboutWidget-AboutWidget-uninstall_subtargets: FORCE
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile uninstall
 
 Makefile: CustomItemBased.pro C:/Qt/5.6/mingw49_32/mkspecs/win32-g++/qmake.conf C:/Qt/5.6/mingw49_32/mkspecs/features/spec_pre.prf \
 		C:/Qt/5.6/mingw49_32/mkspecs/qdevice.pri \
@@ -415,15 +441,15 @@ CustomItemBased.pro:
 qmake: FORCE
 	@$(QMAKE) -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile CustomItemBased.pro
 
-qmake_all: sub-CustomItemMonitor-CustomItemMonitor-qmake_all sub-YuzzViewer-YuzzViewer-qmake_all sub-GLPixmapViewer-GLPixmapViewer-qmake_all sub-ControlBar-ControlBar-qmake_all sub-YuzzViewerWidget-YuzzViewerWidget-qmake_all FORCE
+qmake_all: sub-CustomItemMonitor-CustomItemMonitor-qmake_all sub-YuzzViewer-YuzzViewer-qmake_all sub-GLPixmapViewer-GLPixmapViewer-qmake_all sub-ControlBar-ControlBar-qmake_all sub-YuzzViewerWidget-YuzzViewerWidget-qmake_all sub-AboutWidget-AboutWidget-qmake_all FORCE
 
-make_first: sub-CustomItemMonitor-CustomItemMonitor-make_first sub-YuzzViewer-YuzzViewer-make_first sub-GLPixmapViewer-GLPixmapViewer-make_first sub-ControlBar-ControlBar-make_first sub-YuzzViewerWidget-YuzzViewerWidget-make_first  FORCE
-all: sub-CustomItemMonitor-CustomItemMonitor-all sub-YuzzViewer-YuzzViewer-all sub-GLPixmapViewer-GLPixmapViewer-all sub-ControlBar-ControlBar-all sub-YuzzViewerWidget-YuzzViewerWidget-all  FORCE
-clean: sub-CustomItemMonitor-CustomItemMonitor-clean sub-YuzzViewer-YuzzViewer-clean sub-GLPixmapViewer-GLPixmapViewer-clean sub-ControlBar-ControlBar-clean sub-YuzzViewerWidget-YuzzViewerWidget-clean  FORCE
-distclean: sub-CustomItemMonitor-CustomItemMonitor-distclean sub-YuzzViewer-YuzzViewer-distclean sub-GLPixmapViewer-GLPixmapViewer-distclean sub-ControlBar-ControlBar-distclean sub-YuzzViewerWidget-YuzzViewerWidget-distclean  FORCE
+make_first: sub-CustomItemMonitor-CustomItemMonitor-make_first sub-YuzzViewer-YuzzViewer-make_first sub-GLPixmapViewer-GLPixmapViewer-make_first sub-ControlBar-ControlBar-make_first sub-YuzzViewerWidget-YuzzViewerWidget-make_first sub-AboutWidget-AboutWidget-make_first  FORCE
+all: sub-CustomItemMonitor-CustomItemMonitor-all sub-YuzzViewer-YuzzViewer-all sub-GLPixmapViewer-GLPixmapViewer-all sub-ControlBar-ControlBar-all sub-YuzzViewerWidget-YuzzViewerWidget-all sub-AboutWidget-AboutWidget-all  FORCE
+clean: sub-CustomItemMonitor-CustomItemMonitor-clean sub-YuzzViewer-YuzzViewer-clean sub-GLPixmapViewer-GLPixmapViewer-clean sub-ControlBar-ControlBar-clean sub-YuzzViewerWidget-YuzzViewerWidget-clean sub-AboutWidget-AboutWidget-clean  FORCE
+distclean: sub-CustomItemMonitor-CustomItemMonitor-distclean sub-YuzzViewer-YuzzViewer-distclean sub-GLPixmapViewer-GLPixmapViewer-distclean sub-ControlBar-ControlBar-distclean sub-YuzzViewerWidget-YuzzViewerWidget-distclean sub-AboutWidget-AboutWidget-distclean  FORCE
 	-$(DEL_FILE) Makefile
-install_subtargets: sub-CustomItemMonitor-CustomItemMonitor-install_subtargets sub-YuzzViewer-YuzzViewer-install_subtargets sub-GLPixmapViewer-GLPixmapViewer-install_subtargets sub-ControlBar-ControlBar-install_subtargets sub-YuzzViewerWidget-YuzzViewerWidget-install_subtargets FORCE
-uninstall_subtargets: sub-CustomItemMonitor-CustomItemMonitor-uninstall_subtargets sub-YuzzViewer-YuzzViewer-uninstall_subtargets sub-GLPixmapViewer-GLPixmapViewer-uninstall_subtargets sub-ControlBar-ControlBar-uninstall_subtargets sub-YuzzViewerWidget-YuzzViewerWidget-uninstall_subtargets FORCE
+install_subtargets: sub-CustomItemMonitor-CustomItemMonitor-install_subtargets sub-YuzzViewer-YuzzViewer-install_subtargets sub-GLPixmapViewer-GLPixmapViewer-install_subtargets sub-ControlBar-ControlBar-install_subtargets sub-YuzzViewerWidget-YuzzViewerWidget-install_subtargets sub-AboutWidget-AboutWidget-install_subtargets FORCE
+uninstall_subtargets: sub-CustomItemMonitor-CustomItemMonitor-uninstall_subtargets sub-YuzzViewer-YuzzViewer-uninstall_subtargets sub-GLPixmapViewer-GLPixmapViewer-uninstall_subtargets sub-ControlBar-ControlBar-uninstall_subtargets sub-YuzzViewerWidget-YuzzViewerWidget-uninstall_subtargets sub-AboutWidget-AboutWidget-uninstall_subtargets FORCE
 
 sub-CustomItemMonitor-CustomItemMonitor-debug:
 	@if not exist CustomItemMonitor\CustomItemMonitor\ mkdir CustomItemMonitor\CustomItemMonitor\ & if not exist CustomItemMonitor\CustomItemMonitor\ exit 1
@@ -440,7 +466,10 @@ sub-ControlBar-ControlBar-debug:
 sub-YuzzViewerWidget-YuzzViewerWidget-debug:
 	@if not exist YuzzViewerWidget\YuzzViewerWidget\ mkdir YuzzViewerWidget\YuzzViewerWidget\ & if not exist YuzzViewerWidget\YuzzViewerWidget\ exit 1
 	cd YuzzViewerWidget\YuzzViewerWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\YuzzViewerWidget\YuzzViewerWidget\YuzzViewerWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile debug
-debug: sub-CustomItemMonitor-CustomItemMonitor-debug sub-YuzzViewer-YuzzViewer-debug sub-GLPixmapViewer-GLPixmapViewer-debug sub-ControlBar-ControlBar-debug sub-YuzzViewerWidget-YuzzViewerWidget-debug
+sub-AboutWidget-AboutWidget-debug:
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile debug
+debug: sub-CustomItemMonitor-CustomItemMonitor-debug sub-YuzzViewer-YuzzViewer-debug sub-GLPixmapViewer-GLPixmapViewer-debug sub-ControlBar-ControlBar-debug sub-YuzzViewerWidget-YuzzViewerWidget-debug sub-AboutWidget-AboutWidget-debug
 
 sub-CustomItemMonitor-CustomItemMonitor-release:
 	@if not exist CustomItemMonitor\CustomItemMonitor\ mkdir CustomItemMonitor\CustomItemMonitor\ & if not exist CustomItemMonitor\CustomItemMonitor\ exit 1
@@ -457,7 +486,10 @@ sub-ControlBar-ControlBar-release:
 sub-YuzzViewerWidget-YuzzViewerWidget-release:
 	@if not exist YuzzViewerWidget\YuzzViewerWidget\ mkdir YuzzViewerWidget\YuzzViewerWidget\ & if not exist YuzzViewerWidget\YuzzViewerWidget\ exit 1
 	cd YuzzViewerWidget\YuzzViewerWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\YuzzViewerWidget\YuzzViewerWidget\YuzzViewerWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile release
-release: sub-CustomItemMonitor-CustomItemMonitor-release sub-YuzzViewer-YuzzViewer-release sub-GLPixmapViewer-GLPixmapViewer-release sub-ControlBar-ControlBar-release sub-YuzzViewerWidget-YuzzViewerWidget-release
+sub-AboutWidget-AboutWidget-release:
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile release
+release: sub-CustomItemMonitor-CustomItemMonitor-release sub-YuzzViewer-YuzzViewer-release sub-GLPixmapViewer-GLPixmapViewer-release sub-ControlBar-ControlBar-release sub-YuzzViewerWidget-YuzzViewerWidget-release sub-AboutWidget-AboutWidget-release
 
 sub-CustomItemMonitor-CustomItemMonitor-check:
 	@if not exist CustomItemMonitor\CustomItemMonitor\ mkdir CustomItemMonitor\CustomItemMonitor\ & if not exist CustomItemMonitor\CustomItemMonitor\ exit 1
@@ -474,7 +506,10 @@ sub-ControlBar-ControlBar-check:
 sub-YuzzViewerWidget-YuzzViewerWidget-check:
 	@if not exist YuzzViewerWidget\YuzzViewerWidget\ mkdir YuzzViewerWidget\YuzzViewerWidget\ & if not exist YuzzViewerWidget\YuzzViewerWidget\ exit 1
 	cd YuzzViewerWidget\YuzzViewerWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\YuzzViewerWidget\YuzzViewerWidget\YuzzViewerWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile check
-check: sub-CustomItemMonitor-CustomItemMonitor-check sub-YuzzViewer-YuzzViewer-check sub-GLPixmapViewer-GLPixmapViewer-check sub-ControlBar-ControlBar-check sub-YuzzViewerWidget-YuzzViewerWidget-check
+sub-AboutWidget-AboutWidget-check:
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile check
+check: sub-CustomItemMonitor-CustomItemMonitor-check sub-YuzzViewer-YuzzViewer-check sub-GLPixmapViewer-GLPixmapViewer-check sub-ControlBar-ControlBar-check sub-YuzzViewerWidget-YuzzViewerWidget-check sub-AboutWidget-AboutWidget-check
 
 sub-CustomItemMonitor-CustomItemMonitor-benchmark:
 	@if not exist CustomItemMonitor\CustomItemMonitor\ mkdir CustomItemMonitor\CustomItemMonitor\ & if not exist CustomItemMonitor\CustomItemMonitor\ exit 1
@@ -491,7 +526,10 @@ sub-ControlBar-ControlBar-benchmark:
 sub-YuzzViewerWidget-YuzzViewerWidget-benchmark:
 	@if not exist YuzzViewerWidget\YuzzViewerWidget\ mkdir YuzzViewerWidget\YuzzViewerWidget\ & if not exist YuzzViewerWidget\YuzzViewerWidget\ exit 1
 	cd YuzzViewerWidget\YuzzViewerWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\YuzzViewerWidget\YuzzViewerWidget\YuzzViewerWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile benchmark
-benchmark: sub-CustomItemMonitor-CustomItemMonitor-benchmark sub-YuzzViewer-YuzzViewer-benchmark sub-GLPixmapViewer-GLPixmapViewer-benchmark sub-ControlBar-ControlBar-benchmark sub-YuzzViewerWidget-YuzzViewerWidget-benchmark
+sub-AboutWidget-AboutWidget-benchmark:
+	@if not exist AboutWidget\AboutWidget\ mkdir AboutWidget\AboutWidget\ & if not exist AboutWidget\AboutWidget\ exit 1
+	cd AboutWidget\AboutWidget\ && ( if not exist Makefile $(QMAKE) D:\Dev\Qt\CustomItemBased.git\CustomItemBased\CustomItemBased\AboutWidget\AboutWidget\AboutWidget.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ) && $(MAKE) -f Makefile benchmark
+benchmark: sub-CustomItemMonitor-CustomItemMonitor-benchmark sub-YuzzViewer-YuzzViewer-benchmark sub-GLPixmapViewer-GLPixmapViewer-benchmark sub-ControlBar-ControlBar-benchmark sub-YuzzViewerWidget-YuzzViewerWidget-benchmark sub-AboutWidget-AboutWidget-benchmark
 install:install_subtargets  FORCE
 
 uninstall: uninstall_subtargets FORCE

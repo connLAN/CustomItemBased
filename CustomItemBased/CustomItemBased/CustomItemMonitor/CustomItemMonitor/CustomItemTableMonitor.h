@@ -2,15 +2,6 @@
 #define CUSTOMITEMTABLEMONITOR_H
 
 #include <QObject>
-#include <QWidget>
-#include <QFrame>
-#include <QString>
-#include <QVector>
-#include <QRadioButton>
-#include <QVBoxLayout>
-#include <QHeaderView>
-#include <QList>
-
 #include "CustomItemTableView.h"
 
 class CustomItemTableMonitor : public QFrame

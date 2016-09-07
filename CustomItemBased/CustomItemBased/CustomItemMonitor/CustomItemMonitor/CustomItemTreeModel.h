@@ -2,10 +2,6 @@
 #define CUSTOMITEMTREEMODEL_H
 
 #include <QAbstractItemModel>
-#include <QModelIndex>
-#include <QVariant>
-#include <QSet>
-
 #include "CustomItem.h"
 
 class CustomItemTreeModel : public QAbstractItemModel

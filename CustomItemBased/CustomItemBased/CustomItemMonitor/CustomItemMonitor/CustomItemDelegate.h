@@ -2,9 +2,7 @@
 #define CUSTOMITEMDELEGATE_H
 
 #include <QStyledItemDelegate>
-#include <QPainter>
 #include "CustomItemWidget.h"
-#include "CustomItemTypes.h"
 
 class CustomItemDelegate : public QStyledItemDelegate
 {

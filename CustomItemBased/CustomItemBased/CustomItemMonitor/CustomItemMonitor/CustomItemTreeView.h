@@ -2,8 +2,6 @@
 #define CUSTOMITEMTREEVIEW_H
 
 #include <QObject>
-#include <QTreeView>
-
 #include "CustomItemTreeModel.h"
 #include "CustomItemDelegate.h"
 

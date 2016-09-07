@@ -5,4 +5,5 @@ SUBDIRS += \
     YuzzViewer/YuzzViewer \
     GLPixmapViewer/GLPixmapViewer \
     ControlBar/ControlBar \
-    YuzzViewerWidget/YuzzViewerWidget
+    YuzzViewerWidget/YuzzViewerWidget \
+    AboutWidget/AboutWidget

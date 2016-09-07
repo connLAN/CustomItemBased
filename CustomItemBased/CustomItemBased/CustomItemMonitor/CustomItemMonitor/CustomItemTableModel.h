@@ -2,8 +2,6 @@
 #define CUSTOMITEMTABLEMODEL_H
 
 #include <QAbstractTableModel>
-#include <QList>
-#include <QVector>
 #include "CustomItem.h"
 
 class CustomItemTableModel : public QAbstractTableModel

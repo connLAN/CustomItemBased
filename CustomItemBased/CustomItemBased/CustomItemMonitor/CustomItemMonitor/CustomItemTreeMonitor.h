@@ -2,16 +2,6 @@
 #define CUSTOMITEMTREEMONITOR_H
 
 #include <QObject>
-#include <QWidget>
-#include <QFrame>
-#include <QString>
-#include <QVector>
-#include <QTableView>
-#include <QTreeView>
-#include <QRadioButton>
-#include <QVBoxLayout>
-#include <QHeaderView>
-
 #include "CustomItemTreeView.h"
 
 class CustomItemTreeMonitor : public QFrame

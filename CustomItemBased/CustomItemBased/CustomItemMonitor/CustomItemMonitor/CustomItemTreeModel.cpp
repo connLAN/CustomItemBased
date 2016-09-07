@@ -1,5 +1,3 @@
-#include <QtWidgets>
-#include "CustomItem.h"
 #include "CustomItemTreeModel.h"
 #include <QDebug>
 

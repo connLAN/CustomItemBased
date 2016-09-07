@@ -2,11 +2,8 @@
 #define CUSTOMITEMTABLEVIEW_H
 
 #include <QObject>
-#include <QTableView>
-
 #include "CustomItemTableModel.h"
 #include "CustomItemDelegate.h"
-#include <QItemSelectionModel>
 
 class CustomItemTableView : public QTableView
 {
