@@ -15,7 +15,7 @@ void QCustomPlotExt::initialize()
 {
     yAxis2->setVisible(true);
     xAxis2->setVisible(true);
-    xAxis->setLabel(tr("mm"));
+    //xAxis->setLabel(tr("mm"));
     setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);//| QCP::iSelectAxes | QCP::iSelectLegend );
 
     connect(xAxis,  SIGNAL(rangeChanged(QCPRange)),         this,   SLOT(slotXRangeChanged(QCPRange)));
@@ -56,6 +56,12 @@ void QCustomPlotExt::setAutoScale(bool value)
 void QCustomPlotExt::rescale()
 {
     rescaleAxes(true);
+}
+
+void QCustomPlotExt::clear()
+{
+    clearPlottables();
+    clearItems();
 }
 
 void QCustomPlotExt::setGridVisibility(bool visibility)
@@ -105,10 +111,11 @@ void QCustomPlotExt::drawCoordinates(QList<QCPAbstractPlottable*> plotables)
             point->setText(QString("#%1\nX:%2\nY:%3").arg(n).arg(x).arg(y));
             point->setTextAlignment(Qt::AlignLeft);
             point->setFont(QFont(font().family(), 8));
-            point->setPadding(QMargins(2, 0, 0, 0));
+            point->setPadding(QMargins(2, 2, 2, 2));
             addItem(point);
             n++;
         }
+		break;///Show only one 
     }
 }
 void QCustomPlotExt::slotXRangeChanged(QCPRange range)

@@ -20,7 +20,11 @@ class SliceViewerWidget : public QWidget
 public:
     explicit SliceViewerWidget(QWidget *parent = 0);
     ~SliceViewerWidget();
-
+    void test();
+    void clear();
+    void replot();
+    void rescale();
+	void refilter();
     void addSegment(const QVector<double>& x, const QVector<double>& y,int id = 0);
     void addSegment(const QVector<QPair<double,double>>& xy,int id = 0);
     void setSegmentParams(const QMap<int,SegmentParams>& segmentsParamsMap);
@@ -32,8 +36,7 @@ private:
     QMap<int,QVector<QCPCurve*>>    mSegmentsMap;
     QMap<int,SegmentParams>         mSegmentsParamsMap;
     QStandardItemModel*             mComboCheckBoxModel;
-    void setSegmentsVisibility(bool visibility);
-    void test();
+    void setSegmentsVisibility(bool visibility);    
 };
 
 #endif // SLICEVIEWERWIDGET_H
