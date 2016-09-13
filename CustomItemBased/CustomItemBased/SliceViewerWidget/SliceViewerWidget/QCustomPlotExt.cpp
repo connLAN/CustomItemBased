@@ -24,6 +24,11 @@ void QCustomPlotExt::initialize()
     connect(this,   SIGNAL(selectionChangedByUser()),       this,   SLOT(slotSelectionChanged()));
 }
 
+void QCustomPlotExt::setProportion(double ratio)
+{
+    mRatio = ratio;
+}
+
 QCPCurve* QCustomPlotExt::addCurve(const QVector<double>& x, const QVector<double>& y, QPair<QPen,QBrush> pb)
 {
     QCPCurve* pCurve = new QCPCurve(xAxis,yAxis);
@@ -56,6 +61,13 @@ void QCustomPlotExt::setAutoScale(bool value)
 void QCustomPlotExt::rescale()
 {
     rescaleAxes(true);
+    adjustProportion();
+}
+
+void QCustomPlotExt::clearData()
+{
+	for (auto p : mPlottables)
+		p->clearData();
 }
 
 void QCustomPlotExt::clear()
@@ -148,6 +160,11 @@ void QCustomPlotExt::slotSetCoordinatesVisibility(bool visibility)
 
 void QCustomPlotExt::slotMouseDoubleClick(QMouseEvent *)
 {
-    rescaleAxes(true);
+    rescale();
     replot();
+}
+
+void QCustomPlotExt::adjustProportion()
+{
+    xAxis->setRange(yAxis->range().lower,yAxis->range().upper*mRatio);
 }

@@ -18,17 +18,43 @@ SliceViewerWidget::~SliceViewerWidget()
 
 void SliceViewerWidget::clear()
 {
+	QTime time;
+	time = QTime::currentTime();
     ui->mPlot->clear();
+	qDebug() << "\tClear plot:" << time.elapsed();
+
+	time = QTime::currentTime();
+	mSegmentsMap.clear();
+	mSegmentsCountMap.clear();
+	qDebug() << "\tClear map:" << time.elapsed();
 }
 
+void SliceViewerWidget::clearData()
+{
+	mSegmentsCountMap.clear();
+	ui->mPlot->clearData();
+}
+void SliceViewerWidget::clearPlotablesData()
+{
+	for (auto id : mSegmentsMap.keys())
+	{
+		int segCountPerId = mSegmentsCountMap[id];
+		int needToClearData = mSegmentsMap[id].size() - segCountPerId;
+		qDebug() << "Delete:" << needToClearData;
+		QVector<QCPCurve*>::iterator it;
+		for (it = mSegmentsMap[id].begin() + segCountPerId; it < mSegmentsMap[id].end(); ++it)
+			(*it)->clearData();
+	}
+}
 void SliceViewerWidget::replot()
 {
+	//clearPlotablesData();
     ui->mPlot->replot();
 }
 
 void SliceViewerWidget::rescale()
 {
-    ui->mPlot->rescaleAxes(true);
+    ui->mPlot->rescale();
 }
 
 void SliceViewerWidget::addSegment(const QVector<double> &x, const QVector<double> &y, int id)
@@ -37,11 +63,20 @@ void SliceViewerWidget::addSegment(const QVector<double> &x, const QVector<doubl
     //QPair<QPen, QBrush>pb( QPen(QColor(Qt::black)), QBrush(QColor(Qt::transparent)) );
     QPair<QPen, QBrush>pb(QPen(QColor(0,0,0)), QBrush(QColor(0,0,0,0)));
     if(mSegmentsParamsMap.contains(id))
-        pb = mSegmentsParamsMap[id].mPenBrush;
+        pb = mSegmentsParamsMap[id].mPenBrush;    
+	
+	int segCountPerId = ++mSegmentsCountMap[id];
 
-    pCurve = ui->mPlot->addCurve(x,y,pb);
-
-    mSegmentsMap[id].push_back(pCurve);
+	if (segCountPerId > mSegmentsMap[id].size())
+	{
+		pCurve = ui->mPlot->addCurve(x, y, pb);
+		mSegmentsMap[id].push_back(pCurve);
+	}
+	else
+	{
+		pCurve = mSegmentsMap[id][segCountPerId-1];
+		pCurve->setData(x, y);
+	}
 
 }
 
@@ -77,16 +112,33 @@ void SliceViewerWidget::setSegmentParams(const QMap<int,SegmentParams>& segments
     ui->mSegmensFilter->setCurrentText("Segments");
 }
 
+void SliceViewerWidget::resizeEvent(QResizeEvent *event)
+{
+    QWidget::resizeEvent(event);
+    QSize s = size();
+    int h = s.height()-ui->mSettingsFrame->size().height();
+    int w = s.width();
+    //int minSize = (h>w)?w:h;
+    //s.setHeight(minSize);
+    //s.setWidth(minSize);
+    //ui->mPlot->setMaximumSize(s);
+    //ui->mPlot->updateGeometry();
+
+    ui->mPlot->setProportion((double)w/h);
+    ui->mPlot->rescale();
+    ui->mPlot->replot();
+    qDebug()<<"resize"<<w<<h;
+}
+
 void SliceViewerWidget::refilter()
 {
-	setSegmentsVisibility(true);
-
-	for (int item = 0; item < ui->mSegmensFilter->count(); item++)
-	{
-		int selectedId = mSegmentsParamsMap.keys().at(item);
-		bool visibility = ui->mSegmensFilter->itemData(item, Qt::CheckStateRole).toBool();
-		if (mSegmentsMap.contains(selectedId))
-			for (auto pSegment : mSegmentsMap[selectedId])
+    setSegmentsVisibility(true);
+    for (int item = 0; item < ui->mSegmensFilter->count(); item++)
+    {
+        int selectedId = mSegmentsParamsMap.keys().at(item);
+        bool visibility = ui->mSegmensFilter->itemData(item, Qt::CheckStateRole).toBool();
+        if (mSegmentsMap.contains(selectedId))
+            for (auto pSegment : mSegmentsMap[selectedId])
 				pSegment->setVisible(visibility);
 	}
 }
@@ -101,9 +153,11 @@ void SliceViewerWidget::slotSegmentFilterChanged(QModelIndex,QModelIndex,QVector
 void SliceViewerWidget::initialize()
 {
     ui->mPlot->initialize();
-    QSizePolicy qsp(QSizePolicy::Expanding,QSizePolicy::Expanding);
-    qsp.setHeightForWidth(true);
-    ui->mPlot->setSizePolicy(qsp);
+    ui->mPlot->setProportion(2.0);
+    //QSizePolicy qsp(QSizePolicy::Expanding,QSizePolicy::Expanding);
+    //qsp.setHeightForWidth(true);
+    //qsp.setWidthForHeight(true);
+    //ui->mPlot->setSizePolicy(qsp);
     connect(ui->mIsGrid,        SIGNAL(clicked(bool)),              ui->mPlot,  SLOT(slotSetGridVisibility(bool)));
     connect(ui->mIsAxis,        SIGNAL(clicked(bool)),              ui->mPlot,  SLOT(slotSetAxisVisibility(bool)));
     connect(ui->mIsCoordinates, SIGNAL(clicked(bool)),              ui->mPlot,  SLOT(slotSetCoordinatesVisibility(bool)));
@@ -112,8 +166,8 @@ void SliceViewerWidget::initialize()
 void SliceViewerWidget::setSegmentsVisibility(bool visibility)
 {
     for(auto& segVector : mSegmentsMap)
-        for(auto pSegment : segVector)
-            pSegment->setVisible(visibility);
+		for (auto pSegment : segVector)
+			pSegment->setVisible(visibility);
 }
 
 void SliceViewerWidget::test()
@@ -127,7 +181,7 @@ void SliceViewerWidget::test()
     params.insert(id++,{ "yellow",  {QPen(QColor(Qt::yellow)),  QBrush(QColor(Qt::transparent))} }) ;
     setSegmentParams(params);
 
-    clear();
+    clearData();
 
     id=0;
     addSegment({1,3,8,1},{1,4,7,1},id++);

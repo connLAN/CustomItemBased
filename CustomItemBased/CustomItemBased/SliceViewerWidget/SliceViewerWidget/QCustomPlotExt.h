@@ -16,13 +16,15 @@ public:
     QCPCurve* addCurve(const QVector<QPair<double,double>>& xy,QPair<QPen,QBrush> pb);
 
     virtual void initialize();
+    void setProportion(double ratio);
     void setAutoScale(bool value);
     void rescale();
+	void clearData();
     void clear();
     void setGridVisibility(bool visibility);
     void setAxisVisibility(bool visibility);
     void setCoordinatesVisibility(bool visibility);
-    int heightForWidth(int width) const{return width;}
+
 public slots:
     void slotSetGridVisibility(bool visibility);
     void slotSetAxisVisibility(bool visibility);
@@ -37,7 +39,9 @@ signals:
 private:
     bool mIsAutoScale{false};
     bool mIsCoordinates{true};
+    double mRatio{1.0};
     void drawCoordinates(QList<QCPAbstractPlottable*> plotables);
+    void adjustProportion();
 };
 
 #endif // QCUSTOMPLOTEXT_H
